@@ -15,6 +15,10 @@ public class Mouse {
     public int dy=0;                    //the speed of the hero in the y direction
     public Rectangle rec;
     public int hits;
+    public boolean right;
+    public boolean down;
+    public boolean left;
+    public boolean up;
 
     // METHOD DEFINITION SECTION
 

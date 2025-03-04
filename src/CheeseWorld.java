@@ -2,11 +2,13 @@
 //Add Java libraries needed for the game
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.*;
 
-public class CheeseWorld implements Runnable {
+public class CheeseWorld implements Runnable, KeyListener {
 
     //Variable Definition Section
 
@@ -65,6 +67,7 @@ public class CheeseWorld implements Runnable {
             if (gameOver == false) {
                 moveThings();           //move all the game objects
             }
+            checkKeys();
             checkIntersections();   // check character crashes
             render();               // paint the graphics
             pause(20);         // sleep for 20 ms
@@ -72,9 +75,33 @@ public class CheeseWorld implements Runnable {
     }
 
     public void moveThings() {
+
         jerry.move();
         cheese.move();
         tom.move();
+    }
+
+    public void checkKeys() {
+        if(jerry.up == true) {
+            jerry.dy = -5;
+        }
+        else if(jerry.down == true) {
+            jerry.dy = 5;
+        }
+        else {
+            jerry.dy = 0;
+        }
+
+        if(jerry.right == true) {
+            jerry.dx = 5;
+        }
+        else if(jerry.left == true) {
+            jerry.dx = -5;
+        }
+        else {
+            jerry.dx = 0;
+        }
+
     }
 
     public void checkIntersections() {
@@ -166,4 +193,36 @@ public class CheeseWorld implements Runnable {
         }
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+            int keyCode = e.getKeyCode();
+
+            if (keyCode == 87) {
+                jerry.up = true;
+
+            }
+
+            if (keyCode == 83) {
+                jerry.down = true;
+
+            }
+
+            if (keyCode == 68) {
+                jerry.right = true;
+            }
+
+            if (keyCode == 65){
+                jerry.left = true;
+            }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 } // end of class
