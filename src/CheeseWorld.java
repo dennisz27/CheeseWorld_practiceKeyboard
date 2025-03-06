@@ -45,6 +45,7 @@ public class CheeseWorld implements Runnable, KeyListener {
 
         setUpGraphics();
 
+        canvas.addKeyListener(this);
         //create (construct) the objects needed for the game
         jerry = new Mouse(200, 300, 0, 0);
         cheese = new Cheese(400, 300, 3, -4);
@@ -65,9 +66,9 @@ public class CheeseWorld implements Runnable, KeyListener {
     public void run() {
         while (true) {
             if (gameOver == false) {
-                moveThings();           //move all the game objects
+                moveThings();
+                checkKeys();//move all the game objects
             }
-            checkKeys();
             checkIntersections();   // check character crashes
             render();               // paint the graphics
             pause(20);         // sleep for 20 ms
@@ -82,15 +83,15 @@ public class CheeseWorld implements Runnable, KeyListener {
     }
 
     public void checkKeys() {
-        if(jerry.up == true) {
-            jerry.dy = -5;
-        }
-        else if(jerry.down == true) {
-            jerry.dy = 5;
-        }
-        else {
-            jerry.dy = 0;
-        }
+//        if(jerry.up == true) {
+//            jerry.dy = -5;
+//        }
+//        else if(jerry.down == true) {d
+//            jerry.dy = 5;
+//        }
+//        else {
+//            jerry.dy = 0;
+//        }
 
         if(jerry.right == true) {
             jerry.dx = 5;
@@ -101,6 +102,39 @@ public class CheeseWorld implements Runnable, KeyListener {
         else {
             jerry.dx = 0;
         }
+
+//        if(tom.up == true) {
+//            tom.dy = -5;
+//        }
+//        else if(tom.down == true) {
+//            tom.dy = 5;
+//        }
+//        else {
+//            tom.dy = 0;
+//        }
+
+        if(tom.right == true) {
+            tom.dx = 5;
+        }
+        else if(tom.left == true) {
+            tom.dx = -5;
+        }
+        else {
+            tom.dx = 0;
+        }
+        if(jerry.jumping == true) {
+            jerry.dy = jerry.dy + 1;
+        }
+
+
+        if(tom.jumping == true) {
+            tom.dy = tom.dy + 1;
+        }
+
+        if (tom.ypos > 250) {
+            tom.ypos = 250;
+        }
+
 
     }
 
@@ -203,7 +237,7 @@ public class CheeseWorld implements Runnable, KeyListener {
             int keyCode = e.getKeyCode();
 
             if (keyCode == 87) {
-                jerry.up = true;
+            jerry.up = true;
 
             }
 
@@ -219,10 +253,69 @@ public class CheeseWorld implements Runnable, KeyListener {
             if (keyCode == 65){
                 jerry.left = true;
             }
+
+//        if (keyCode == 38) {
+//            tom.up = true;
+//
+//        }
+
+        if (keyCode == 40) {
+            tom.down = true;
+
+        }
+
+        if (keyCode == 39) {
+            tom.right = true;
+        }
+
+        if (keyCode == 37){
+            tom.left = true;
+        }
+
+            if (keyCode == 32){
+                jerry.dy = -15;
+                jerry.jumping = true;
+            }
+        if (keyCode == 38){
+            tom.dy = -15;
+            tom.jumping = true;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+
+        if(keyCode == 87) {
+            jerry.up = false;
+        }
+
+        if (keyCode == 83) {
+            jerry.down = false;
+        }
+
+        if (keyCode == 68) {
+            jerry.right = false;
+        }
+
+        if (keyCode == 65) {
+            jerry.left = false;
+        }
+
+//d
+
+        if (keyCode == 40) {
+            tom.down = false;
+
+        }
+
+        if (keyCode == 39) {
+            tom.right = false;
+        }
+
+        if (keyCode == 37){
+            tom.left = false;
+        }
 
     }
 } // end of class

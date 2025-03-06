@@ -19,6 +19,7 @@ public class Mouse {
     public boolean down;
     public boolean left;
     public boolean up;
+    public boolean jumping;
 
     // METHOD DEFINITION SECTION
 

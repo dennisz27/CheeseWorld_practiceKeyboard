@@ -18,6 +18,7 @@ public class Cat {
     public boolean down;
     public boolean left;
     public boolean up;
+    public boolean jumping;
 
     public Cat(int pXpos, int pYpos, int dxParameter, int dyParameter) {
 
